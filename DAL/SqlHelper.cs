@@ -14,7 +14,7 @@ namespace 反窃电.DAL
     {
         public static SqlHelper sqlHelper = new SqlHelper();
         public static SqlHelper Helper() { return sqlHelper; }
- 
+
         private SqlConnection conn = null;
         private SqlCommand cmd = null;
 
@@ -163,28 +163,25 @@ namespace 反窃电.DAL
             return dt;
         }
 
-        ///// <summary>
-        ///// 获取结果集中的第一行的第一列
-        ///// </summary>
-        ///// <param name="sql"></param>
-        ///// <param name="type"></param>
-        ///// <param name="pars"></param>
-        ///// <returns></returns>
-        //public object ExecuteScalare(string sql, CommandType type, params SqlParameter[] pars)
-        //{
-        //    using(SqlConnection conn = new SqlConnection(connstr))
-        //    {
-        //        using(SqlCommand cmd = new SqlCommand(sql, conn))
-        //        {
-        //            cmd.CommandType = type;
-        //            if(pars != null)
-        //            {
-        //                cmd.Parameters.AddRange(pars);
-        //            }
-        //            conn.Open();
-        //            return cmd.ExecuteScalar();
-        //        }
-        //    }
-        //}
+        /// <summary>
+        /// 获取结果集中的第一行的第一列，常用于计数
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="type"></param>
+        /// <param name="pars"></param>
+        /// <returns></returns>
+        public object ExecuteScalare(string sql, CommandType type, params SqlParameter[] pars)
+        {
+            using(cmd = new SqlCommand(sql, getconn()))
+            {
+                cmd.CommandType = type;
+                if(pars != null)
+                {
+                    cmd.Parameters.AddRange(pars);
+                }
+                conn.Open();
+                return cmd.ExecuteScalar();
+            }
+        }
     }
 }

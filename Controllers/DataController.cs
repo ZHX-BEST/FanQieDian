@@ -15,7 +15,8 @@ namespace 反窃电.Controllers
         // GET: Data
         public ActionResult Index()
         {
-            var datas = DAL.DataDAL.getdata("class1", "2019-05-24");
+            DateTime time = Convert.ToDateTime("2019-05-23");
+            var datas = DAL.ElectricDataDAL.getAmountData("class1",time.ToString());
             return View(datas);
         }
     }
