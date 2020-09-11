@@ -1,0 +1,33 @@
+﻿@model IEnumerable<反窃电.Models.ElectricData>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<table border="1">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model=>model.A相电压)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model=>model.A相电压)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model=>model.A相电压)
+        </th>
+    </tr>
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model=>item.A相电压)
+            </td>
+            <td>
+                @Html.DisplayFor(model=>item.A相电流)
+            </td>
+            <td>
+                @Html.DisplayFor(model=>item.时间)
+            </td>
+        </tr>
+    }
+</table>
