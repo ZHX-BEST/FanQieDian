@@ -12,59 +12,65 @@ namespace 反窃电.DAL
 {
     public class ElectricDataDAL
     {
-        /// <summary>
-        /// 获取某一天数据并将DataTable转为List<>
-        /// </summary>
-        /// <param name="classId">客户名</param>
-        /// <param name="dateTime">所选时间（yy-MM-dd/ToString("d")</param>
-        /// <returns></returns>
-        public static List<ElectricData> getDayData(string classId, string dateTime)
-        {
+        private ElectricDataDAL edDAL = new ElectricDataDAL();
+        public ElectricDataDAL GetedDAL() { return edDAL; }
+        public ElectricDataDAL() { }
+        
+        #region 获取某一天数据
+        ///// <summary>
+        ///// 获取某一天数据并将DataTable转为List<>
+        ///// </summary>
+        ///// <param name="classId">客户名</param>
+        ///// <param name="dateTime">所选时间（yy-MM-dd/ToString("d")</param>
+        ///// <returns></returns>
+        //public static List<ElectricData> getDayData(string classId, string dateTime)
+        //{
 
-            string sql = $"select A相电压,B相电压,C相电压,A相电流,B相电流,C相电流,用电量,变压器容量,倍率,最大电流M,最小电流m,时间 from {classId} where CONVERT(VARCHAR(10),时间,120)=@dateTime";
-            SqlParameter[] pars =
-            {
-                new SqlParameter("@dateTime",SqlDbType.Char)
-            };
-            pars[0].Value = dateTime;
+        //    string sql = $"select A相电压,B相电压,C相电压,A相电流,B相电流,C相电流,用电量,变压器容量,倍率,最大电流M,最小电流m,时间 from {classId} where CONVERT(VARCHAR(10),时间,120)=@dateTime";
+        //    SqlParameter[] pars =
+        //    {
+        //        new SqlParameter("@dateTime",SqlDbType.Char)
+        //    };
+        //    pars[0].Value = dateTime;
 
-            DataTable da = SqlHelper.sqlHelper.ExcuteQuery(sql, pars, CommandType.Text);
-            List<ElectricData> list = null;
-            if(da.Rows.Count > 0)
-            {
-                list = new List<ElectricData>();
-                ElectricData electricData = null;
-                foreach(DataRow row in da.Rows)
-                {
-                    electricData = new ElectricData();
-                    LoadEntity(row, electricData);
-                    list.Add(electricData);
-                }
+        //    DataTable da = SqlHelper.sqlHelper.ExcuteQuery(sql, pars, CommandType.Text);
+        //    List<ElectricData> list = null;
+        //    if(da.Rows.Count > 0)
+        //    {
+        //        list = new List<ElectricData>();
+        //        ElectricData electricData = null;
+        //        foreach(DataRow row in da.Rows)
+        //        {
+        //            electricData = new ElectricData();
+        //            LoadEntity(row, electricData);
+        //            list.Add(electricData);
+        //        }
 
-            }
-            else
-            {
-                list = new List<ElectricData>();
-                ElectricData ed = new ElectricData();
-                ed.A相电压 = 0;
-                ed.A相电流 = 0;
-                ed.B相电压 = 0;
-                ed.B相电流 = 0;
-                ed.C相电压 = 0;
-                ed.C相电流 = 0;
-                //ed.户号 = "0";
-                //ed.表计局号 = "0";
-                //ed.类型 = 0;
-                ed.倍率 = 0;
-                ed.变压器容量 = 0;
-                ed.用电量 = 0;
-                ed.最大电流M = 0;
-                ed.最小电流m = 0;
-                ed.时间 = DateTime.MinValue;
-                list.Add(ed);
-            }
-            return list;
-        }
+        //    }
+        //    else
+        //    {
+        //        list = new List<ElectricData>();
+        //        ElectricData ed = new ElectricData();
+        //        ed.A相电压 = 0;
+        //        ed.A相电流 = 0;
+        //        ed.B相电压 = 0;
+        //        ed.B相电流 = 0;
+        //        ed.C相电压 = 0;
+        //        ed.C相电流 = 0;
+        //        //ed.户号 = "0";
+        //        //ed.表计局号 = "0";
+        //        //ed.类型 = 0;
+        //        ed.倍率 = 0;
+        //        ed.变压器容量 = 0;
+        //        ed.用电量 = 0;
+        //        ed.最大电流M = 0;
+        //        ed.最小电流m = 0;
+        //        ed.时间 = DateTime.MinValue;
+        //        list.Add(ed);
+        //    }
+        //    return list;
+        //}
+        #endregion
 
         /// <summary>
         /// 获取截止某一时间点之前的96个数据

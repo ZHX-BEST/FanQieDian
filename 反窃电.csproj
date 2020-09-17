@@ -145,6 +145,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RegistersController.cs" />
     <Compile Include="DAL\ElectricDataDAL.cs" />
+    <Compile Include="DAL\JudgeMentA.cs" />
     <Compile Include="DAL\ListtoDatatable.cs" />
     <Compile Include="DAL\SqlHelper.cs" />
     <Compile Include="DAL\RegisterDAL.cs" />

@@ -12,7 +12,7 @@ namespace 反窃电.DAL
 {
     public class SqlHelper
     {
-        public static SqlHelper sqlHelper = new SqlHelper();
+        private static SqlHelper sqlHelper = new SqlHelper();
         public static SqlHelper Helper() { return sqlHelper; }
 
         private SqlConnection conn = null;
