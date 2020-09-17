@@ -21,7 +21,7 @@ namespace 反窃电.DAL
         public static List<ElectricData> getDayData(string classId, string dateTime)
         {
 
-            string sql = $"select A相电压,A相电流,时间 from {classId} where CONVERT(VARCHAR(10),时间,120)=@dateTime";
+            string sql = $"select A相电压,B相电压,C相电压,A相电流,B相电流,C相电流,用电量,变压器容量,倍率,最大电流M,最小电流m,时间 from {classId} where CONVERT(VARCHAR(10),时间,120)=@dateTime";
             SqlParameter[] pars =
             {
                 new SqlParameter("@dateTime",SqlDbType.Char)
@@ -48,6 +48,18 @@ namespace 反窃电.DAL
                 ElectricData ed = new ElectricData();
                 ed.A相电压 = 0;
                 ed.A相电流 = 0;
+                ed.B相电压 = 0;
+                ed.B相电流 = 0;
+                ed.C相电压 = 0;
+                ed.C相电流 = 0;
+                //ed.户号 = "0";
+                //ed.表计局号 = "0";
+                //ed.类型 = 0;
+                ed.倍率 = 0;
+                ed.变压器容量 = 0;
+                ed.用电量 = 0;
+                ed.最大电流M = 0;
+                ed.最小电流m = 0;
                 ed.时间 = DateTime.MinValue;
                 list.Add(ed);
             }
@@ -63,7 +75,7 @@ namespace 反窃电.DAL
         public static List<ElectricData> getAmountData(string classId, string dateTime)
         {
 
-            string sql = $"select top 96 A相电压,A相电流,时间 from {classId} where 时间<=@dateTime order by 时间 desc";
+            string sql = $"select top 96 A相电压,B相电压,C相电压,A相电流,B相电流,C相电流,用电量,变压器容量,倍率,最大电流M,最小电流m,时间 from {classId} where 时间<=@dateTime order by 时间 desc";
             SqlParameter[] pars =
             {
                 new SqlParameter("@dateTime",SqlDbType.Char)
@@ -90,7 +102,20 @@ namespace 反窃电.DAL
                 ElectricData ed = new ElectricData();
                 ed.A相电压 = 0;
                 ed.A相电流 = 0;
+                ed.B相电压 = 0;
+                ed.B相电流 = 0;
+                ed.C相电压 = 0;
+                ed.C相电流 = 0;
+                //ed.户号 = "0";
+                //ed.表计局号 = "0";
+                //ed.类型 = 0;
+                ed.倍率 = 0;
+                ed.变压器容量 = 0;
+                ed.用电量 = 0;
+                ed.最大电流M = 0;
+                ed.最小电流m = 0;
                 ed.时间 = DateTime.MinValue;
+                
                 list.Add(ed);
             }
             return list;
@@ -103,8 +128,17 @@ namespace 反窃电.DAL
         /// <param name="electricData">模型对象</param>
         private static void LoadEntity(DataRow row, ElectricData electricData)
         {
-            electricData.A相电压 = (double)Convert.ToSingle(row["A相电压"]);
-            electricData.A相电流 = Convert.ToSingle(row["A相电流"]);
+            electricData.A相电压 = (float)Convert.ToDecimal(row["A相电压"]);
+            electricData.B相电压 = (float)Convert.ToDecimal(row["B相电压"]);
+            electricData.C相电压 = (float)Convert.ToDecimal(row["C相电压"]);
+            electricData.A相电流 = (float)Convert.ToDecimal(row["A相电流"]);
+            electricData.B相电流 = (float)Convert.ToDecimal(row["B相电流"]);
+            electricData.C相电流 = (float)Convert.ToDecimal(row["C相电流"]);
+            electricData.倍率 = (float)Convert.ToDecimal(row["倍率"]);
+            electricData.变压器容量 = (float)Convert.ToDecimal(row["变压器容量"]);
+            electricData.用电量 = (float)Convert.ToDecimal(row["用电量"] != DBNull.Value ? row["用电量"].ToString() : "0");            
+            electricData.最大电流M = (float)Convert.ToDecimal(row["最大电流M"]);
+            electricData.最小电流m = (float)Convert.ToDecimal(row["最小电流m"]);
             electricData.时间 = Convert.ToDateTime(row["时间"]);
         }
 
